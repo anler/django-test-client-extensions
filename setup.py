@@ -8,9 +8,9 @@ py_version = sys.version_info[:2]
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-PROJECT_NAME = "testclient-extensions"
+PROJECT_NAME = "django-testclient-extensions"
 PROJECT_URL = "https://github.com/ikame/django-test-client-extensions"
-PROJECT_VERSION = "0.1.0"
+PROJECT_VERSION = "0.1.1"
 PROJECT_DESCRIPTION = "Extensions to Django's built-in test client."
 
 AUTHOR = "ikame"
@@ -41,6 +41,7 @@ setup(name=PROJECT_NAME,
       author_email=AUTHOR_EMAIL,
       url=PROJECT_URL,
       license="MIT",
+      packages=["testclient_extensions"],
       install_requires=["six", "mock"],
       tests_require=["pytest", "mock"],
       cmdclass={"test": PyTest},

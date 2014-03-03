@@ -30,3 +30,7 @@ class MyTest:
 	    self.client.login(user)
 		# ...
 ```
+
+## Installation ##
+
+`pip install django-restclient-extensions`

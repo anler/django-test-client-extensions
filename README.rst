@@ -10,7 +10,7 @@ To install, simply run:
 
 .. code-block:: bash
 
-    $ pip install testclient-extensions
+    $ pip install django-testclient-extensions
 
 Or, directly from the main repository:
 
