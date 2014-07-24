@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.2 (jue jul 24 11:52:48 CEST 2014)
+++++++++++++++++++++++++++++++++++++
+
+- Support for calling client.json property for setting the next request content-type to json.
+
 0.1.0 (Thu Jan 30 12:36:15 CET 2014)
 ++++++++++++++++++++++++++++++++++++
 
