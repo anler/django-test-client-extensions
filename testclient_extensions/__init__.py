@@ -54,3 +54,7 @@ class Client(client.Client):
             if content_type_key in content_type:
                 return encoder(data)
         return super(Client, self)._encode_data(data, content_type)
+
+    def generic(self, method, path, data='', content_type='application/octet-stream', **extra):
+        data = self._encode_data(data, content_type)
+        return super(Client, self).generic(method, path, data, content_type, **extra)

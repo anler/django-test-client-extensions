@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.3 (jue jul 24 14:31:04 CEST 2014)
+++++++++++++++++++++++++++++++++++++
+
+- Support for calling client.json property for all request client methods.
+
+
 0.1.2 (jue jul 24 11:52:48 CEST 2014)
 ++++++++++++++++++++++++++++++++++++
 

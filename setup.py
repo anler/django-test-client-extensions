@@ -10,7 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = "django-testclient-extensions"
 PROJECT_URL = "https://github.com/ikame/django-test-client-extensions"
-PROJECT_VERSION = "0.1.2"
+PROJECT_VERSION = "0.1.3"
 PROJECT_DESCRIPTION = "Extensions to Django's built-in test client."
 
 AUTHOR = "ikame"
