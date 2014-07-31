@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
@@ -8,9 +9,15 @@ py_version = sys.version_info[:2]
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+
+def get_version(package):
+    """Return package version as listed in `__version__` in `init.py`"""
+    init_py = open(os.path.join(package, '__init__.py')).read()
+    return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
+
 PROJECT_NAME = "django-testclient-extensions"
 PROJECT_URL = "https://github.com/ikame/django-test-client-extensions"
-PROJECT_VERSION = "0.1.3"
+PROJECT_VERSION = get_version("testclient_extensions")
 PROJECT_DESCRIPTION = "Extensions to Django's built-in test client."
 
 AUTHOR = "ikame"
@@ -22,11 +29,13 @@ try:
 except IOError:
     README = PROJECT_URL
 
+
 class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
+
     def run_tests(self):
         import pytest
         errno = pytest.main(self.test_args)
