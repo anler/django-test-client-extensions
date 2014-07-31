@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 import mock
+import re
 from functools import partial
-
-from six import iteritems
 
 from django.test import client
 
@@ -18,9 +17,31 @@ class PartialMethodCaller(object):
         return partial(getattr(self.obj, name), **self.partial_params)
 
 
+class Encoder(object):
+    def __init__(self, match, encoder, predicate):
+        self._match = re.compile(match)
+        self._encoder = encoder
+        self._predicate = predicate
+
+    def __call__(self, *args, **kwargs):
+        return self.encode(*args, **kwargs)
+
+    def encode(self, data, **options):
+        return self._encoder(data, **options)
+
+    def accepts(self, data, **options):
+        return self._predicate(data, **options)
+
+    def match(self, content_type):
+        return self._match.search(content_type)
+
+    def match_and_accepts(self, content_type, data, **options):
+        return self.match(content_type) and self.accepts(data, **options)
+
+
 class Client(client.Client):
 
-    DATA_ENCODERS = {"json": json.dumps}
+    DATA_ENCODERS = [Encoder("json", json.dumps, lambda data, **options: isinstance(data, dict))]
 
     @property
     def json(self):
@@ -50,8 +71,8 @@ class Client(client.Client):
             return super(Client, self).login(**credentials)
 
     def _encode_data(self, data, content_type):
-        for content_type_key, encoder in iteritems(self.DATA_ENCODERS):
-            if content_type_key in content_type:
+        for encoder in self.DATA_ENCODERS:
+            if encoder.match_and_accepts(content_type, data):
                 return encoder(data)
         return super(Client, self)._encode_data(data, content_type)
 
